@@ -1,57 +1,34 @@
 <script>
+	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
+	import { page } from '$app/state';
+	import { isNewUser, session } from '$lib/auth.svelte.js';
 	import Header from './Header.svelte';
 	import './layout.css';
 
 	let { children } = $props();
+
+	const gates = ['/login', '/newusercreation'];
+	const gate = $derived(!session.user ? '/login' : (isNewUser() ? '/newusercreation' : null));
+	const allowed = $derived(
+		session.ready && (gate ? page.route.id === gate : !gates.includes(page.route.id))
+	);
+
+	$effect(() => {
+		if (!session.ready) return;
+		if (gate && page.route.id !== gate) goto(resolve(gate));
+		else if (!gate && gates.includes(page.route.id)) goto(resolve('/'));
+	});
 </script>
 
-<div class="app">
+<div class="flex min-h-screen flex-col bg-zinc-100 text-zinc-900">
 	<Header />
 
-	<main>
-		{@render children()}
+	<main class="mx-auto flex w-full max-w-5xl flex-1 flex-col p-4">
+		{#if allowed}
+			{@render children()}
+		{/if}
 	</main>
 
-	<footer>
-		<p>
-			visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to learn about SvelteKit
-		</p>
-	</footer>
+	
 </div>
-
-<style>
-	.app {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-	}
-
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 64rem;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
-
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 12px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
-	}
-</style>
