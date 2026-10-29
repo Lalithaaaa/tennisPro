@@ -1,42 +1,7 @@
-# sv
+# TennisPro
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+TennisPro is a website where users can sign up as a player or coach to get feedback on their recorded plays. Players or coaches may upload videos of previous matches, which will then be analyzed and produce an analysis on your play.
 
-## Creating a project
+## Website Link
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```sh
-# create a new project
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
-
-```sh
-# recreate this project
-npx sv@0.17.0 create --template demo --no-types --install npm tennisPro
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+TennisPro is always available to view! Visit our site at tennispro-9dedb.web.app
